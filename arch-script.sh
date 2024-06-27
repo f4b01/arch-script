@@ -37,7 +37,7 @@ btrfs subv cr /mnt/@tmp
 umount /mnt
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@ /dev/vda3 /mnt
 
-mkdir -p /mnt/{root,srv,var/log,var/cache,tmp}
+mkdir -p /mnt/{home,root,srv,var/log,var/cache,tmp}
 
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@root /dev/vda3 /mnt/root
 
