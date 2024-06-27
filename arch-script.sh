@@ -35,21 +35,21 @@ btrfs subv cr /mnt/@cache
 btrfs subv cr /mnt/@tmp
 
 umount /mnt
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@ /dev/vda3 /mnt
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@ ${disk}3 /mnt
 
 mkdir -p /mnt/{home,root,srv,var/log,var/cache,tmp}
 
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@root /dev/vda3 /mnt/root
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@root ${disk}3 /mnt/root
 
 
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@home /dev/vda3 /mnt/home
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@home ${disk}3 /mnt/home
 
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@srv /dev/vda3 /mnt/srv
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@srv ${disk}3 /mnt/srv
 
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@log /dev/vda3 /mnt/var/log
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@log ${disk}3 /mnt/var/log
 
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@cache /dev/vda3 /mnt/var/cache
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@cache ${disk}3 /mnt/var/cache
 
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@tmp /dev/vda3 /mnt/tmp
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@tmp ${disk}3 /mnt/tmp
 
 
