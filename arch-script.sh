@@ -52,4 +52,13 @@ mount -o defaults,noatime,compress=zstd,commit=120,subvol=@cache ${disk}3 /mnt/v
 
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@tmp ${disk}3 /mnt/tmp
 
+mkdir -p /mnt/boot/efi
+mount ${disk}1 /mnt/boot/efi
+
+swapon ${disk}2
+
+pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim git btrfs-progs intel-ucode grub efibootmgr networkmanager
+
+genfstab /mnt > /mnt/etc/fstab
+
 
