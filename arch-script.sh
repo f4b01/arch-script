@@ -61,4 +61,24 @@ pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim 
 
 genfstab /mnt > /mnt/etc/fstab
 
+arch-chroot /mnt
 
+ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
+
+hwclock --systohc
+
+echo "it_IT.UTF-8 UTF-8" >> /etc/locale.gen
+
+echo "LANG=it.IT.UTF-8" > /etc/locale.conf
+echo "KEYMAP=it2" > /etc/vconsole.conf
+echo $NOME > /etc/hostname
+
+useradd -m -G wheel -s /bin/bash fabiano
+
+echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+systemctl enable Networkmanager
+
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+
+grub-mkconfig -o /boot/grub/grub.cfg
