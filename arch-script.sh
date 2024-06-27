@@ -25,4 +25,31 @@ mkfs.btrfs -f ${disk}3
 
 echo "Partizioni create con successo."
 
+mount ${disk}3 /mnt 
+btrfs subv cr /mnt/@
+btrfs subv cr /mnt/@root
+btrfs subv cr /mnt/@home
+btrfs subv cr /mnt/@srv
+btrfs subv cr /mnt/@log
+btrfs subv cr /mnt/@cache
+btrfs subv cr /mnt/@tmp
+
+umount /mnt
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@ /dev/vda3 /mnt
+
+mkdir -p /mnt/{root,srv,var/log,var/cache,tmp}
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@root /dev/vda3 /mnt/root
+
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@home /dev/vda3 /mnt/home
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@srv /dev/vda3 /mnt/srv
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@log /dev/vda3 /mnt/var/log
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@cache /dev/vda3 /mnt/var/cache
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@tmp /dev/vda3 /mnt/tmp
+
 
