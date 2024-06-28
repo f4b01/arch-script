@@ -1,16 +1,16 @@
 #!/bin/bash 
 
 # Disco su cui creare le partizioni
-echo "Nome del disco in cui creare le partizioni\n"
+echo "Nome del disco in cui creare le partizioni"
 read disk
 
-echo "inserisci il nome del computer\n"
+echo "inserisci il nome del computer"
 read pc
 
-echo "inserisci il nome dell'utente\n"
+echo "inserisci il nome dell'utente"
 read USERNAME
 
-echo "inserisci la password\n"
+echo "inserisci la password"
 read PASSWORD
 # Creazione della tabella delle partizioni
 parted -s $disk mklabel gpt
@@ -130,4 +130,4 @@ systemctl enable Networkmanager sddm
 
 REALEND
 
-arch-chroot /mnt next.sh    
+arch-chroot /mnt sh next.sh    
