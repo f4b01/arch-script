@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!usr/bin/env bash 
 
 # Disco su cui creare le partizioni
 echo "Nome del disco in cui creare le partizioni"
@@ -69,7 +69,7 @@ pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim 
 genfstab -U /mnt > /mnt/etc/fstab
 
 
-cat <<REALEND >> next.sh 
+cat <<REALEND > /mnt/next.sh 
 
 echo "---------------------------------------"
 echo "impostiamo la lingua su IT, il tipo di tastiera e i locale"
