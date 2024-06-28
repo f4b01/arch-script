@@ -1,9 +1,17 @@
 #!/bin/bash 
 
-#!/bin/bash
 # Disco su cui creare le partizioni
-disk="/dev/sda"
+echo "Nome del disco in cui creare le partizioni\n"
+read disk
 
+echo "inserisci il nome del computer\n"
+read pc
+
+echo "inserisci il nome dell'utente\n"
+read USERNAME
+
+echo "inserisci la password\n"
+read PASSWORD
 # Creazione della tabella delle partizioni
 parted -s $disk mklabel gpt
 
@@ -41,7 +49,6 @@ mkdir -p /mnt/{home,root,srv,var/log,var/cache,tmp}
 
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@root ${disk}3 /mnt/root
 
-
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@home ${disk}3 /mnt/home
 
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@srv ${disk}3 /mnt/srv
@@ -57,28 +64,70 @@ mount ${disk}1 /mnt/boot/efi
 
 swapon ${disk}2
 
-pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim git btrfs-progs intel-ucode grub efibootmgr networkmanager
+pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim git btrfs-progs intel-ucode grub efibootmgr networkmanager --no-confirm --needed
 
-genfstab /mnt > /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 
-arch-chroot /mnt
+
+cat <<REALEND >> next.sh 
+
+echo "---------------------------------------"
+echo "impostiamo la lingua su IT, il tipo di tastiera e i locale"
+echo "---------------------------------------\n"
 
 ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
 
 hwclock --systohc
 
-echo "it_IT.UTF-8 UTF-8" >> /etc/locale.gen
-
 echo "LANG=it.IT.UTF-8" > /etc/locale.conf
+
 echo "KEYMAP=it2" > /etc/vconsole.conf
-echo $NOME > /etc/hostname
 
-useradd -m -G wheel -s /bin/bash fabiano
+sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 
-echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+locale-gen
 
-systemctl enable Networkmanager
+
+echo "------------------------------------------------"
+echo "Creiamo l'utente e configuriamo i sudoers file"
+echo "------------------------------------------------\n"
+
+
+echo $pc > /etc/hostname
+
+useradd -m -G wheel,storage,power,audio -s /bin/bash $USERNAME
+
+echo "$USERNAME:$PASSWORD" | chpasswd
+
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
+
+
+echo "-----------------"
+echo "Installiamo Grub"
+echo "-----------------\n"
+
 
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 
 grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
+echo "-----------------------"
+echo "Installiamo KDE Plasma"
+echo "-----------------------\n"
+
+sudo pacman -S plasma sddm kde-applications --noconfirm --needed
+
+
+
+echo "---------------------"
+echo "Abilitiamo i servizi"
+echo "---------------------\n"
+
+systemctl enable Networkmanager sddm
+
+REALEND
+
+arch-chroot /mnt next.sh    
