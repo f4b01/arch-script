@@ -1,4 +1,4 @@
-#!usr/bin/env bash 
+#!/bin/bash 
 
 # Disco su cui creare le partizioni
 echo "Nome del disco in cui creare le partizioni"
@@ -105,7 +105,7 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 echo "-----------------"
 echo "Installiamo Grub"
-echo "-----------------\n"
+echo "-----------------"
 
 
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
@@ -116,7 +116,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "-----------------------"
 echo "Installiamo KDE Plasma"
-echo "-----------------------\n"
+echo "-----------------------"
 
 sudo pacman -S plasma sddm kde-applications --noconfirm --needed
 
@@ -124,7 +124,7 @@ sudo pacman -S plasma sddm kde-applications --noconfirm --needed
 
 echo "---------------------"
 echo "Abilitiamo i servizi"
-echo "---------------------\n"
+echo "---------------------"
 
 systemctl enable Networkmanager sddm
 
