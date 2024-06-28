@@ -64,7 +64,7 @@ mount ${disk}1 /mnt/boot/efi
 
 swapon ${disk}2
 
-pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim git btrfs-progs intel-ucode grub efibootmgr networkmanager --no-confirm --needed
+pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware neovim git btrfs-progs intel-ucode grub efibootmgr networkmanager --noconfirm --needed
 
 genfstab -U /mnt > /mnt/etc/fstab
 
