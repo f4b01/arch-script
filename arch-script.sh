@@ -118,7 +118,7 @@ echo "-----------------------"
 echo "Installiamo KDE Plasma"
 echo "-----------------------"
 
-sudo pacman -S plasma sddm kde-applications --noconfirm --needed
+sudo pacman -S plasma sddm --noconfirm --needed
 
 
 
