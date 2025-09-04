@@ -123,11 +123,11 @@ sudo pacman -S plasma sddm --noconfirm --needed
 
 
 echo "---------------------"
-echo "Abilitiamo i servizi"
+echo "Installiamo e Abilitiamo i servizi"
 echo "---------------------"
-
-systemctl enable Networkmanager sddm
+pacman -S networkmanager
+systemctl enable NetworkManager sddm
 
 REALEND
 
-arch-chroot /mnt sh next.sh    
+arch-chroot /mnt  next.sh
