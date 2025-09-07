@@ -120,15 +120,15 @@ echo "-----------------------"
 echo "Installiamo KDE Plasma"
 echo "-----------------------"
 
-sudo pacman -S plasma sddm zen-browser okular gwenview --noconfirm --needed
+sudo pacman -S plasma sddm okular gwenview kate variety --noconfirm --needed
 
 
 
 echo "---------------------"
 echo "Installiamo e Abilitiamo i servizi"
 echo "---------------------"
-sudo pacman -S networkmanager sddm --noconfirm --needed
-systemctl enable NetworkManager sddm
+# sudo pacman -S networkmanager sddm --noconfirm --needed
+sudo systemctl enable NetworkManager sddm
 
 REALEND
 
