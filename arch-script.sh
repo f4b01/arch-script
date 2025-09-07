@@ -133,4 +133,4 @@ systemctl enable NetworkManager sddm
 REALEND
 
 chmod +x next.sh
-arch-chroot /mnt  next.sh
+arch-chroot /mnt  sh next.sh
