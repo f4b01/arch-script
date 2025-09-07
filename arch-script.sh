@@ -1,4 +1,4 @@
-#!/bin/bash 
+        #!/bin/bash
 
 # Disco su cui creare le partizioni
 echo "Nome del disco in cui creare le partizioni"
@@ -43,9 +43,11 @@ btrfs subv cr /mnt/@cache
 btrfs subv cr /mnt/@tmp
 
 umount /mnt
-mount -o defaults,noatime,compress=zstd,commit=120,subvol=@ ${disk}3 /mnt
+
 
 mkdir -p /mnt/{home,root,srv,var/log,var/cache,tmp}
+
+mount -o defaults,noatime,compress=zstd,commit=120,subvol=@ ${disk}3 /mnt
 
 mount -o defaults,noatime,compress=zstd,commit=120,subvol=@root ${disk}3 /mnt/root
 
@@ -130,4 +132,5 @@ systemctl enable NetworkManager sddm
 
 REALEND
 
+chmod +x next.sh
 arch-chroot /mnt  next.sh
