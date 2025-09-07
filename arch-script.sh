@@ -120,7 +120,7 @@ echo "-----------------------"
 echo "Installiamo KDE Plasma"
 echo "-----------------------"
 
-sudo pacman -S plasma sddm okular gwenview kate variety --noconfirm --needed
+sudo pacman -S plasma xorg plasma-wayland-session sddm okular gwenview kate variety --noconfirm --needed
 
 
 
